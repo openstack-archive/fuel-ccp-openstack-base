@@ -1,9 +1,6 @@
 FROM {{ namespace }}/base-tools:{{ tag }}
 MAINTAINER {{ maintainer }}
 
-# This will prevent questions from being asked during the install
-ENV DEBIAN_FRONTEND noninteractive
-
 RUN apt-get install -y --no-install-recommends \
         build-essential \
         python-dev \
