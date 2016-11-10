@@ -15,10 +15,11 @@ RUN apt-get install -y --no-install-recommends \
 
 COPY pip.conf /tmp/pip.conf
 
-RUN curl -o /tmp/constraints.txt https://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt \
-    && pip --no-cache-dir install -U virtualenv \
+{{ copy_sources("openstack/requirements", "/tmp/requirements") }}
+
+RUN pip --no-cache-dir install -U virtualenv \
     && virtualenv /var/lib/microservices/venv \
-    && mv /tmp/constraints.txt /var/lib/microservices/venv \
+    && mv /tmp/requirements/upper-constraints.txt /var/lib/microservices/venv/constraints.txt \
     && mv /tmp/pip.conf /var/lib/microservices/venv \
     && /var/lib/microservices/venv/bin/pip install --upgrade \
         Babel \
@@ -121,6 +122,6 @@ RUN curl -o /tmp/constraints.txt https://git.openstack.org/cgit/openstack/requir
         unicodecsv \
         warlock \
         wrapt \
-    && rm -rf requirements
+    && rm -rf /tmp/requirements
 
 ENV PATH /var/lib/microservices/venv/bin:$PATH

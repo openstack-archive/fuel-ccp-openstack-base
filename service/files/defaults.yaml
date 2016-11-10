@@ -1,0 +1,4 @@
+sources:
+  openstack/requirements:
+    git_url: https://github.com/openstack/requirements.git
+    git_ref: stable/newton
