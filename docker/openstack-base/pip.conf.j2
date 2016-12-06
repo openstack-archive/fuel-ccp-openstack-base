@@ -1,3 +1,6 @@
 [global]
 constraint = /var/lib/microservices/venv/constraints.txt
 no-cache-dir = false
+{% if url.pypi_index %}
+index-url = {{ url.pypi_index }}
+{% endif %}

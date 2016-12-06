@@ -2,3 +2,6 @@ sources:
   openstack/requirements:
     git_url: https://git.openstack.org/openstack/requirements.git
     git_ref: stable/newton
+
+url:
+  pypi_index: https://pypi.python.org/simple/

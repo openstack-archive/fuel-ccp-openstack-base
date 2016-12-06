@@ -13,7 +13,7 @@ RUN apt-get install -y --no-install-recommends \
         git \
     && apt-get clean
 
-COPY pip.conf /tmp/pip.conf
+COPY {{ render('pip.conf.j2') }} /tmp/pip.conf
 
 {{ copy_sources("openstack/requirements", "/tmp/requirements") }}
 
