@@ -17,12 +17,12 @@ COPY {{ render('pip.conf.j2') }} /tmp/pip.conf
 
 {{ copy_sources("openstack/requirements", "/tmp/requirements") }}
 
-RUN pip --no-cache-dir install -U virtualenv \
-    && virtualenv /var/lib/microservices/venv \
+RUN pip --no-cache-dir install --constraint /tmp/requirements/upper-constraints.txt -U virtualenv \
+    && virtualenv --no-download /var/lib/microservices/venv \
     && mv /tmp/requirements/upper-constraints.txt /var/lib/microservices/venv/constraints.txt \
     && sed -i 's/eventlet=.*/eventlet===0.20.1/' /var/lib/microservices/venv/constraints.txt \
     && mv /tmp/pip.conf /var/lib/microservices/venv \
-    && /var/lib/microservices/venv/bin/pip install --upgrade \
+    && /var/lib/microservices/venv/bin/pip install \
         Babel \
         Mako \
         MarkupSafe \
